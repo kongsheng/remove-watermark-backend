@@ -111,8 +111,14 @@ def inpaint(image: Image.Image, mask: Image.Image) -> Image.Image:
 
     # Feather 边缘，缓解多色背景的接缝/色差（将掩码平滑为 0~1 alpha）
     alpha = (mask_bool.astype(np.float32))
+    # GaussianBlur 需要 2D 输入，所以先压缩，模糊后再扩展回 3 通道
+    if alpha.ndim == 3:
+        alpha = alpha[:, :, 0]
     alpha = cv2.GaussianBlur(alpha, (11, 11), 0)
     alpha = np.clip(alpha, 0.0, 1.0)
+    # 扩展为 3 通道以匹配 RGB 图像
+    if alpha.ndim == 2:
+        alpha = alpha[:, :, np.newaxis]
 
     # 小区域采用 Poisson 混合提升色彩一致性（LOGO/角落小水印场景）
     area = int(mask_bin.sum() // 255)
