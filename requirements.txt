@@ -1,8 +1,8 @@
 flask==3.0.3
 flask-cors==4.0.0
 pillow==10.4.0
-numpy>=1.21.0,<2.0
-opencv-python-headless>=4.8.0,<4.10.0
+numpy==2.2.6
+opencv-python-headless==4.10.0.84
 lama-cleaner
 # 注意：请根据你的设备安装合适的 PyTorch 版本（CPU 或 CUDA）。
 # CPU 版（示例）：
