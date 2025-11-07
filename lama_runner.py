@@ -76,7 +76,7 @@ def inpaint(image: Image.Image, mask: Image.Image) -> Image.Image:
     img_np = np.array(work_img)
     mask_np = np.array(work_mask)
     mask_bin = (mask_np > 127).astype(np.uint8) * 255
-    kernel = np.ones((7, 7), np.uint8)
+    kernel = np.ones((7, 7), dtype=np.uint8)
     mask_bin = cv2.dilate(mask_bin, kernel, iterations=1)
 
     result = manager(img_np, mask_bin, cfg)
